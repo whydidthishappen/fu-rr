@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html translate="no">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 300;
+        font-optical-sizing: auto;
+        background: black url(textures/dither.gif)center;
+        background-attachment: fixed;
+        color: rgba(255, 255, 255, 0.9);
+        min-height: 100vh;
+        font-size: 14px;
+        letter-spacing: -1px;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    section {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        overflow: hidden;
+        cursor: grab;
+        background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 41%, rgba(0, 0, 0, 1) 90%);
+        background-size: cover;
+    }
+
+
+
+    input::placeholder {
+        color: rgba(255, 255, 255, 0.8);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 100%;
+    }
+
+    input[type="text"]:focus {
+        outline: 0px solid #fff;
+        border: none;
+    }
+
+    .centerform {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        font-weight: 100;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .centerform.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+    }
+
+    .form-container {
+        background: rgba(255, 255, 255, 0);
+        padding: 10px;
+        max-width: 400px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .form-container * {
+        transition: 0.2s all ease-in;
+
+    }
+
+    .form-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .form-group input[type="text"],
+    .form-group select {
+        box-sizing: border-box;
+        width: 100%;
+        border: 0px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
+        font-family: "IBM Plex Mono", monospace;
+        autocomplete: off;
+        autofill: off;
+    }
+
+    .form-group input[type="text"] {}
+
+    .choices-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 5px;
+    }
+
+    .checkbox-group,
+    .radio-group {
+        padding: 15px 10px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        border: 1px solid rgba(255, 255, 255, 0);
+        border-radius: 5px;
+    }
+
+    .checked {
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .checkbox-group input[type="checkbox"],
+    .radio-group input[type="radio"] {
+        display: none;
+    }
+
+    .checkbox-group label,
+    .radio-group label {
+        margin: 0;
+        flex: 1;
+        font-size: 80%;
+        font-weight: 400;
+    }
+
+    h3 {
+        flex: 1;
+        font-weight: 400;
+        border-bottom: 1px solid;
+        margin-bottom: 5px;
+        font-size: 100%;
+        padding-bottom: 5px;
+    }
+
+    h4 {
+        font-weight: 400;
+        margin: 10px 0;
+        font-size: 100%;
+    }
+
+    h2 {
+        font-weight: 400;
+        margin: 10px 0;
+        font-size: 110%;
+        font-style: italic;
+    }
+
+    button {
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.9);
+        font-family: "IBM Plex Mono", monospace;
+        font-style: italic;
+        font-size: 120%;
+        border-radius: 10px;
+        background: transparent;
+        padding: 15px;
+        margin-top: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: rgba(255, 255, 255, 0.9);
+        color: rgba(0, 0, 0, 0.9);
+    }
+
+    .hidden-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 1s ease-in-out;
+    }
+
+    .visible-content {
+        max-height: 500px;
+    }
+
+    #firstpage {
+
+        z-index: 3;
+        font-size: 220%;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #typed-output {
+        cursor: pointer;
+        display: inline-block;
+    }
+    </style>
+</head>
+
+<body>
+  
+    <div id="firstpage">
+        <div id="typed-output"></div>
+    </div>
+
+
+
+
+
+
+  <div class="centerform hidden">
+        <div class="form-container">
+            <form id="weddingForm" autocomplete="off">
+                <div class="form-group" id="nameGroup">
+                    <h2>~ The Wedding of Farihin & Ryder ~</h2>
+                    <input type="text" id="name" name="name" placeholder="Please Enter Your Name" autocomplete="off" autocomplete="false" required>
+                </div>
+                <div class="form-group" id="attendanceGroup">
+                    <h4>Can you attend our wedding in Mexico City?</h4>
+                    <div class="choices-group">
+                        <div class="checkbox-group" id="welcomeDinnerGroup">
+                            <input type="checkbox" id="welcomeDinner" name="welcomeDinner">
+                            <h3>Welcome Dinner</h3>
+                            <label for="welcomeDinner">Fri, 24 Jan 2025<br>(Festive Attire)</label>
+                        </div>
+                        <div class="checkbox-group" id="ceremonyReceptionGroup">
+                            <input type="checkbox" id="ceremonyReception" name="ceremonyReception">
+                            <h3>Ceremony and Reception</h3>
+                            <label for="ceremonyReception">Sat, 25 Jan 2025<br>(Black Tie)</label>
+                        </div>
+                        <div class="checkbox-group" id="recoveryBrunchGroup">
+                            <input type="checkbox" id="recoveryBrunch" name="recoveryBrunch">
+                            <h3>Recovery Brunch</h3>
+                            <label for="recoveryBrunch">Sun, 26 Jan 2025<br>(Casual)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group hidden-content" id="lodgingGroup">
+                    <h4>Want us to provide lodging?</h4>
+                    <div class="choices-group">
+                        <div class="radio-group" id="lodging1NightGroup">
+                            <input type="radio" id="lodging1Night" name="lodging" value="1 night" required>
+                            <label for="lodging1Night">Yes,<br>1 night</label>
+                        </div>
+                        <div class="radio-group" id="lodging2NightsGroup">
+                            <input type="radio" id="lodging2Nights" name="lodging" value="2 nights">
+                            <label for="lodging2Nights">Yes,<br>2 nights</label>
+                        </div>
+                        <div class="radio-group" id="lodgingOwnGroup">
+                            <input type="radio" id="lodgingOwn" name="lodging" value="own">
+                            <label for="lodgingOwn">No,<br>I'll book my own</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group hidden-content" id="plusOneGroup">
+                    <h4>Bringing a plus one?</h4>
+                    <div class="choices-group">
+                        <div class="radio-group" id="plusOneYesGroup">
+                            <input type="radio" id="plusOneYes" name="plusOne" value="Yes" required>
+                            <label for="plusOneYes">Yes</label>
+                        </div>
+                        <div class="radio-group" id="plusOneNoGroup">
+                            <input type="radio" id="plusOneNo" name="plusOne" value="No">
+                            <label for="plusOneNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group hidden-content" id="guestNameGroup" style="height: 0;">
+                    <input type="text" id="guestName" name="guestName" placeholder="Name of Guest" autocomplete="off">
+                </div>
+                <div class="form-group hidden-content" id="submitButtonGroup">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script>
+        document.getElementById('weddingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            data.welcomeDinner = formData.get('welcomeDinner') === 'on';
+            data.ceremonyReception = formData.get('ceremonyReception') === 'on';
+            data.recoveryBrunch = formData.get('recoveryBrunch') === 'on';
+
+            console.log(data); // Handle the data as needed
+
+            alert('Form submitted successfully!');
+        });
+
+        function toggleCheckboxBackground(checkboxId, groupId) {
+            const checkbox = document.getElementById(checkboxId);
+            const group = document.getElementById(groupId);
+
+            group.addEventListener('click', function() {
+                checkbox.checked = !checkbox.checked;
+                group.classList.toggle('checked', checkbox.checked);
+                checkAttendanceSelections();
+            });
+        }
+
+        function checkAttendanceSelections() {
+            const welcomeDinner = document.getElementById('welcomeDinner').checked;
+            const ceremonyReception = document.getElementById('ceremonyReception').checked;
+            const recoveryBrunch = document.getElementById('recoveryBrunch').checked;
+
+            if (welcomeDinner || ceremonyReception || recoveryBrunch) {
+                document.getElementById('lodgingGroup').classList.add('visible-content');
+                document.getElementById('lodgingGroup').classList.remove('hidden-content');
+            } else {
+                document.getElementById('lodgingGroup').classList.remove('visible-content');
+                document.getElementById('lodgingGroup').classList.add('hidden-content');
+                document.getElementById('plusOneGroup').classList.remove('visible-content');
+                document.getElementById('plusOneGroup').classList.add('hidden-content');
+                document.getElementById('submitButtonGroup').classList.remove('visible-content');
+                document.getElementById('submitButtonGroup').classList.add('hidden-content');
+            }
+        }
+
+        function toggleRadioBackground(radioId, groupId) {
+            const radio = document.getElementById(radioId);
+            const group = document.getElementById(groupId);
+
+            group.addEventListener('click', function() {
+                radio.checked = true;
+
+                if (groupId.startsWith('lodging')) {
+                    document.querySelectorAll('.radio-group[id^="lodging"]').forEach(function(radioGroup) {
+                        radioGroup.classList.remove('checked');
+                    });
+                    group.classList.add('checked');
+                    document.getElementById('plusOneGroup').classList.add('visible-content');
+                    document.getElementById('plusOneGroup').classList.remove('hidden-content');
+                } else if (groupId.startsWith('plusOne')) {
+                    document.querySelectorAll('.radio-group[id^="plusOne"]').forEach(function(radioGroup) {
+                        radioGroup.classList.remove('checked');
+                    });
+                    group.classList.add('checked');
+
+                    if (radioId === 'plusOneYes') {
+                        document.getElementById('guestNameGroup').style.height = '45px';
+                        document.getElementById('guestNameGroup').classList.add('visible-content');
+                        document.getElementById('guestNameGroup').classList.remove('hidden-content');
+                    } else {
+                        document.getElementById('guestNameGroup').style.height = '0';
+                        document.getElementById('guestNameGroup').classList.remove('visible-content');
+                        document.getElementById('guestNameGroup').classList.add('hidden-content');
+                    }
+                }
+
+                document.getElementById('submitButtonGroup').classList.add('visible-content');
+                document.getElementById('submitButtonGroup').classList.remove('hidden-content');
+            });
+        }
+
+        toggleCheckboxBackground('welcomeDinner', 'welcomeDinnerGroup');
+        toggleCheckboxBackground('ceremonyReception', 'ceremonyReceptionGroup');
+        toggleCheckboxBackground('recoveryBrunch', 'recoveryBrunchGroup');
+        toggleRadioBackground('lodging1Night', 'lodging1NightGroup');
+        toggleRadioBackground('lodging2Nights', 'lodging2NightsGroup');
+        toggleRadioBackground('lodgingOwn', 'lodgingOwnGroup');
+        toggleRadioBackground('plusOneYes', 'plusOneYesGroup');
+        toggleRadioBackground('plusOneNo', 'plusOneNoGroup');
+    </script>
+    <script type="module">
+        import * as THREE from "./build/three.module.js";
+        import { OrbitControls } from "./jsm/controls/OrbitControls.js";
+        import { GLTFLoader } from "./jsm/loaders/GLTFLoader.js";
+
+        let container, controls, clock, mixers = [];
+        let camera, scene, renderer;
+        let paused = false;
+        let objectScale = 9; // Default scale value
+
+        init();
+        render();
+
+        function init() {
+            container = document.createElement("section");
+            document.body.appendChild(container);
+
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 5);
+
+            scene = new THREE.Scene();
+            clock = new THREE.Clock();
+
+            const envMap = new THREE.CubeTextureLoader()
+                .setPath('textures/cubeMaps/')
+                .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xffffff, 2);
+            pointLight.position.copy(camera.position);
+            camera.add(pointLight);
+            scene.add(pointLight);
+
+            const glassMaterial = new THREE.MeshPhysicalMaterial({
+                color: 0x000000,
+                metalness: 0.0,
+                roughness: 0.05,           // Decrease roughness for smoother surface
+                envMap: envMap,
+                envMapIntensity: 6,      // Increase for more intense reflections
+                clearcoat: 1.0,            // Add a glossy clear coat
+                clearcoatRoughness: 0.0,   // Make the clear coat smooth
+                transparent: true,
+                opacity: 0.6,
+                transmission: 0.9,         // Use transmission to simulate glass refraction
+                ior: 1.5,                  // Index of refraction (1.5 is common for glass)
+            });
+
+            const loader = new GLTFLoader().setPath("models/");
+            loader.load("3.glb", function (gltf) {
+                gltf.scene.position.set(0, -2.8, 0);
+                gltf.scene.scale.set(objectScale, objectScale, objectScale); // Apply initial scale
+
+                const mixer = new THREE.AnimationMixer(gltf.scene);
+                gltf.animations.forEach((clip) => {
+                    mixer.clipAction(clip).play();
+                });
+                mixers.push(mixer);
+
+                gltf.scene.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material = glassMaterial;
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
+                scene.add(gltf.scene);
+            });
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setClearColor(0xFFFFFF, 0);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            container.appendChild(renderer.domElement);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.minDistance = 1;
+            controls.maxDistance = 10;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 2;
+            controls.target.set(0, 0, 0);
+            controls.update();
+            controls.addEventListener("change", () => {
+                pointLight.position.copy(camera.position);
+            });
+
+            animate();
+
+            window.addEventListener("resize", onWindowResize, false);
+        }
+
+        function setScale(newScale) {
+            objectScale = newScale;
+            scene.traverse((child) => {
+                if (child.isMesh || child.isGroup) {
+                    child.scale.set(objectScale, objectScale, objectScale);
+                }
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (!paused) {
+                const delta = clock.getDelta();
+                mixers.forEach((mixer) => {
+                    if (mixer) mixer.update(delta);
+                });
+            }
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            render();
+        }
+
+        function render() {
+            renderer.render(scene, camera);
+        }
+
+        window.scrollTo(0, 0);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var options = {
+                strings: ["Welcome....", "This is the Bunga Telur (or Egg Flower)..", "Symbolizing blessings and new beginnings..","You are invited to attend our new beginning..", "The Wedding of Farihin and Ryder..", "Click to RSVP "],
+                typeSpeed: 70,
+                backSpeed: 25,
+                loop: false
+            };
+
+            var typed = new Typed("#typed-output", options);
+
+            document.getElementById('typed-output').addEventListener('click', function() {
+                document.getElementById('firstpage').style.opacity = 0;
+                setTimeout(function() {
+                    document.getElementById('firstpage').style.display = 'none';
+                    document.querySelector('.centerform').classList.remove('hidden');
+                    zoomInAndReposition(); // Call the zoom function here
+                }, 500);
+            });
+        });
+
+       function zoomInAndReposition() {
+    // Update the camera and object position
+    const targetPosition = { x: 0, y: 0.9, z: 0.6 }; // New camera position
+    const duration = 0; // Duration of the animation in milliseconds
+    const startPosition = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+    const startTime = performance.now();
+
+    // Initial and target material property values
+    const initialMaterialProperties = { envMapIntensity: 6.0 }; // Example initial value
+    const targetMaterialProperties = { envMapIntensity: 0.1 }; // Example target value
+
+    function animateZoom(time) {
+        const elapsed = time - startTime;
+        const t = Math.min(elapsed / duration, 1);
+
+        // Interpolate camera position
+        camera.position.set(
+            startPosition.x + (targetPosition.x - startPosition.x) * t,
+            startPosition.y + (targetPosition.y - startPosition.y) * t,
+            startPosition.z + (targetPosition.z - startPosition.z) * t
+        );
+
+        // Interpolate material properties
+        scene.traverse((child) => {
+            if (child.isMesh) {
+                child.material.envMapIntensity = initialMaterialProperties.envMapIntensity +
+                                                 (targetMaterialProperties.envMapIntensity - initialMaterialProperties.envMapIntensity) * t;
+                child.material.needsUpdate = true; // Ensure material is updated
+            }
+        });
+
+        controls.target.set(0, 0, 0); // Update the target to keep the object centered
+        controls.update();
+
+        if (t < 1) {
+            requestAnimationFrame(animateZoom);
+        }
+    }
+
+    requestAnimationFrame(animateZoom);
+}
+
+    </script>
+</body>
+
+</html>

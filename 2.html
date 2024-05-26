@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html translate="no">
+
+<head>
+    <title>Wedding RSVP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Cormorant", serif;
+            font-optical-sizing: auto;
+            margin: 0;
+            padding: 20px;
+            background: black;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            font-weight: 100;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 12px; 
+        }
+        * {
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0);
+            padding: 10px;
+            border-radius: 0px;
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+        }
+        .form-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+
+            box-sizing: border-box;
+            width:100%;
+            border:1px solid #ccc;
+            padding:5px;
+            background-color: rgba(255,255,255,0.7);
+            border-radius: 5px;
+            cursor: pointer;
+            margin:5px 0;
+        }
+
+        .form-group input[type="text"] {
+
+        }
+        .choices-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            gap:5px;
+        }
+        .checkbox-group,
+        .radio-group {
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            border:1px solid rgba(255, 255, 255, 0);
+            color: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+        }
+        .checked {
+            border:1px solid rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .checkbox-group input[type="checkbox"],
+        .radio-group input[type="radio"] {
+            display: none;
+        }
+        .checkbox-group label,
+        .radio-group label {
+            margin: 0;
+            flex: 1;
+        }
+        h3 {
+            flex:1;
+            font-weight: 100;
+            font-style: italic;
+            border-bottom: 1px solid;
+            margin-bottom: 5px;
+        }
+
+        h4 {
+            font-weight: 100;
+            font-style: italic;
+                        font-size: 14px; 
+
+
+        }
+        button {
+            width:100%;
+            border:1px solid white;
+            color: white;
+            font-size: 14px;
+            border-radius: 10px;
+            background: transparent;
+            padding:15px;
+            margin-top:10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.01);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <form id="weddingForm">
+            <div class="form-group">
+                <h4>Whats your name?</h4>
+                <input type="text" id="name" name="name" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <h4>Can you attend our wedding in Mexico City?</h4>
+                <div class="choices-group">
+                    <div class="checkbox-group" id="welcomeDinnerGroup">
+                        <input type="checkbox" id="welcomeDinner" name="welcomeDinner">
+                        <h3>Welcome Dinner</h3>
+                        <label for="welcomeDinner">Fri, 24 Jan 2025 (Festive Attire)</label>
+                    </div>
+                    <div class="checkbox-group" id="ceremonyReceptionGroup">
+                        <input type="checkbox" id="ceremonyReception" name="ceremonyReception">
+                        <h3>Ceremony and Reception</h3>
+                        <label for="ceremonyReception">Sat, 25 Jan 2025 (Black Tie)</label>
+                    </div>
+                    <div class="checkbox-group" id="recoveryBrunchGroup">
+                        <input type="checkbox" id="recoveryBrunch" name="recoveryBrunch">
+                        <h3>Recovery Brunch</h3>
+                        <label for="recoveryBrunch">Sun, 26 Jan 2025 (Casual)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <h4>Want us to provide lodging?</h4>
+                <div class="choices-group">
+                    <div class="radio-group" id="lodging1NightGroup">
+                        <input type="radio" id="lodging1Night" name="lodging" value="1 night" required>
+                        <label for="lodging1Night">Yes, 1 night</label>
+                    </div>
+                    <div class="radio-group" id="lodging2NightsGroup">
+                        <input type="radio" id="lodging2Nights" name="lodging" value="2 nights">
+                        <label for="lodging2Nights">Yes, 2 nights</label>
+                    </div>
+                    <div class="radio-group" id="lodgingOwnGroup">
+                        <input type="radio" id="lodgingOwn" name="lodging" value="own">
+                        <label for="lodgingOwn">No, Ill book my own</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <h4>Bringing a plus one?</h4>
+                <div class="choices-group">
+                    <div class="radio-group" id="plusOneYesGroup">
+                        <input type="radio" id="plusOneYes" name="plusOne" value="Yes" required>
+                        <label for="plusOneYes">Yes</label>
+                    </div>
+                    <div class="radio-group" id="plusOneNoGroup">
+                        <input type="radio" id="plusOneNo" name="plusOne" value="No">
+                        <label for="plusOneNo">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="guestNameGroup" style="display: none;">
+                <input type="text" id="guestName" name="guestName" placeholder="Name of Guest">
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+    document.getElementById('weddingForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        data.welcomeDinner = formData.get('welcomeDinner') === 'on';
+        data.ceremonyReception = formData.get('ceremonyReception') === 'on';
+        data.recoveryBrunch = formData.get('recoveryBrunch') === 'on';
+
+        console.log(data); // Handle the data as needed
+
+        alert('Form submitted successfully!');
+    });
+
+    // Function to toggle background color on checkbox change
+    function toggleCheckboxBackground(checkboxId, groupId) {
+        const checkbox = document.getElementById(checkboxId);
+        const group = document.getElementById(groupId);
+
+        group.addEventListener('click', function() {
+            checkbox.checked = !checkbox.checked;
+            group.classList.toggle('checked', checkbox.checked);
+        });
+    }
+
+    // Function to toggle background color on radio button change and show guest name field
+    function toggleRadioBackground(radioId, groupId) {
+        const radio = document.getElementById(radioId);
+        const group = document.getElementById(groupId);
+
+        group.addEventListener('click', function() {
+            radio.checked = true;
+            document.querySelectorAll('.radio-group').forEach(function(radioGroup) {
+                radioGroup.classList.remove('checked');
+            });
+            group.classList.add('checked');
+
+            if (radioId === 'plusOneYes') {
+                document.getElementById('guestNameGroup').style.display = 'block';
+            } else {
+                document.getElementById('guestNameGroup').style.display = 'none';
+            }
+        });
+    }
+
+    toggleCheckboxBackground('welcomeDinner', 'welcomeDinnerGroup');
+    toggleCheckboxBackground('ceremonyReception', 'ceremonyReceptionGroup');
+    toggleCheckboxBackground('recoveryBrunch', 'recoveryBrunchGroup');
+    toggleRadioBackground('lodging1Night', 'lodging1NightGroup');
+    toggleRadioBackground('lodging2Nights', 'lodging2NightsGroup');
+    toggleRadioBackground('lodgingOwn', 'lodgingOwnGroup');
+    toggleRadioBackground('plusOneYes', 'plusOneYesGroup');
+    toggleRadioBackground('plusOneNo', 'plusOneNoGroup');
+    </script>
+</body>
+
+</html>
