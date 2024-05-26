@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <title>FURR 2025</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
@@ -15,7 +16,7 @@
         font-family: "IBM Plex Mono", monospace;
         font-weight: 300;
         font-optical-sizing: auto;
-        background: black url(textures/dither.gif)center;
+        background: black url(textures/dither.gif) center;
         background-attachment: fixed;
         color: rgba(255, 255, 255, 0.9);
         min-height: 100vh;
@@ -25,6 +26,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    @keyframes breath {
+        60%{
+            background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 20%, rgba(0, 0, 0, 1) 90%);
+        }
     }
 
     section {
@@ -38,9 +45,8 @@
         cursor: grab;
         background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 41%, rgba(0, 0, 0, 1) 90%);
         background-size: cover;
+        /*animation: 20s breath infinite ease-in;*/
     }
-
-
 
     input::placeholder {
         color: rgba(255, 255, 255, 0.8);
@@ -171,8 +177,11 @@
 
     h4 {
         font-weight: 400;
-        margin: 10px 0;
+        margin: 20px 10px 5px 10px;
         font-size: 100%;
+        font-weight: 500;
+        font-size: 90%;
+        text-transform: capitalize;
     }
 
     h2 {
@@ -213,7 +222,6 @@
     }
 
     #firstpage {
-
         z-index: 3;
         font-size: 220%;
         color: rgba(255, 255, 255, 0.8);
@@ -222,45 +230,62 @@
     #typed-output {
         cursor: pointer;
         display: inline-block;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .fade-in {
+        opacity: 1 !important;
+    }
+
+    .fade-in-text {
+        opacity: 1;
+    }
+
+    .fade-in-text::after {
+        content: attr(data-text);
+        display: block;
+        white-space: pre;
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+    small {
+        margin-bottom: 10px;
     }
     </style>
 </head>
 
 <body>
-  
     <div id="firstpage">
         <div id="typed-output"></div>
     </div>
 
-
-
-
-
-
-  <div class="centerform hidden">
+    <div class="centerform hidden">
         <div class="form-container">
             <form id="weddingForm" autocomplete="off">
                 <div class="form-group" id="nameGroup">
-                    <h2>~ The Wedding of Farihin & Ryder ~</h2>
+                    <h2>The Wedding of Farihin & Ryder</h2>
+                    <small>[ Mexico City, MX - 2025 ]</small>
                     <input type="text" id="name" name="name" placeholder="Please Enter Your Name" autocomplete="off" autocomplete="false" required>
                 </div>
                 <div class="form-group" id="attendanceGroup">
-                    <h4>Can you attend our wedding in Mexico City?</h4>
+                    <h4>Select the events you'd like to attend :</h4>
                     <div class="choices-group">
                         <div class="checkbox-group" id="welcomeDinnerGroup">
                             <input type="checkbox" id="welcomeDinner" name="welcomeDinner">
                             <h3>Welcome Dinner</h3>
-                            <label for="welcomeDinner">Fri, 24 Jan 2025<br>(Festive Attire)</label>
+                            <label for="welcomeDinner">Fri, 24 Jan<br>(Festive Attire)</label>
                         </div>
                         <div class="checkbox-group" id="ceremonyReceptionGroup">
                             <input type="checkbox" id="ceremonyReception" name="ceremonyReception">
                             <h3>Ceremony and Reception</h3>
-                            <label for="ceremonyReception">Sat, 25 Jan 2025<br>(Black Tie)</label>
+                            <label for="ceremonyReception">Sat, 25 Jan<br>(Black Tie)</label>
                         </div>
                         <div class="checkbox-group" id="recoveryBrunchGroup">
                             <input type="checkbox" id="recoveryBrunch" name="recoveryBrunch">
                             <h3>Recovery Brunch</h3>
-                            <label for="recoveryBrunch">Sun, 26 Jan 2025<br>(Casual)</label>
+                            <label for="recoveryBrunch">Sun, 26 Jan<br>(Casual)</label>
                         </div>
                     </div>
                 </div>
@@ -303,8 +328,6 @@
             </form>
         </div>
     </div>
-
-
 
     <script>
         document.getElementById('weddingForm').addEventListener('submit', function(event) {
@@ -435,7 +458,7 @@
                 metalness: 0.0,
                 roughness: 0.05,           // Decrease roughness for smoother surface
                 envMap: envMap,
-                envMapIntensity: 6,      // Increase for more intense reflections
+                envMapIntensity: 7,      // Increase for more intense reflections
                 clearcoat: 1.0,            // Add a glossy clear coat
                 clearcoatRoughness: 0.0,   // Make the clear coat smooth
                 transparent: true,
@@ -532,7 +555,15 @@
                 loop: false
             };
 
-            var typed = new Typed("#typed-output", options);
+            document.getElementById('typed-output').style.opacity = 0;
+            
+            setTimeout(() => {
+                document.getElementById('typed-output').classList.add('fade-in');
+            }, 1000);
+
+            setTimeout(() => {
+                var typed = new Typed("#typed-output", options);
+            }, 2000);
 
             document.getElementById('typed-output').addEventListener('click', function() {
                 document.getElementById('firstpage').style.opacity = 0;
