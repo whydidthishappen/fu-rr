@@ -26,6 +26,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
     }
 
     @keyframes breath {
@@ -33,9 +34,17 @@
             background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 20%, rgba(0, 0, 0, 1) 90%);
         }
     }
-
+    @keyframes fadeinbg {
+        from{
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
     section {
         width: 100vw;
+        animation: fadeinbg 8s 1 linear;
         height: 100vh;
         position: fixed;
         left: 0;
@@ -45,7 +54,6 @@
         cursor: grab;
         background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 41%, rgba(0, 0, 0, 1) 90%);
         background-size: cover;
-        /*animation: 20s breath infinite ease-in;*/
     }
 
     input::placeholder {
@@ -229,9 +237,13 @@
 
     #typed-output {
         cursor: pointer;
-        display: inline-block;
+        display: contents;
         opacity: 0;
         transition: opacity 1s;
+    }
+
+    .typed-cursor {
+        display: inline-block;
     }
 
     .fade-in {
@@ -252,6 +264,12 @@
     }
     small {
         margin-bottom: 10px;
+    }
+
+        @media (max-width: 960px) { 
+         #firstpage {
+        font-size: 160%;
+
     }
     </style>
 </head>
