@@ -30,21 +30,24 @@
     }
 
     @keyframes breath {
-        60%{
+        60% {
             background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 20%, rgba(0, 0, 0, 1) 90%);
         }
     }
+
     @keyframes fadeinbg {
-        from{
+        from {
             opacity: 0;
         }
+
         to {
             opacity: 1;
         }
     }
+
     section {
         width: 100vw;
-        animation: fadeinbg 8s 1 linear;
+        animation: fadeinbg 4s 1 linear;
         height: 100vh;
         position: fixed;
         left: 0;
@@ -92,6 +95,7 @@
         padding: 0;
         box-sizing: border-box;
         user-select: none;
+        outline: 0;
     }
 
     .form-container {
@@ -233,6 +237,7 @@
         z-index: 3;
         font-size: 220%;
         color: rgba(255, 255, 255, 0.8);
+        padding: 0 20px;
     }
 
     #typed-output {
@@ -262,14 +267,19 @@
         height: 0;
         overflow: hidden;
     }
+
     small {
         margin-bottom: 10px;
     }
 
-        @media (max-width: 960px) { 
-         #firstpage {
-        font-size: 160%;
-
+    @media (max-width: 960px) {
+        #firstpage {
+            font-size: 160%;
+        }
+        .centerform{
+            top:-10px;
+            overflow: auto;
+        }
     }
     </style>
 </head>
@@ -278,7 +288,6 @@
     <div id="firstpage">
         <div id="typed-output"></div>
     </div>
-
     <div class="centerform hidden">
         <div class="form-container">
             <form id="weddingForm" autocomplete="off">
@@ -346,7 +355,6 @@
             </form>
         </div>
     </div>
-
     <script>
         document.getElementById('weddingForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -481,8 +489,6 @@
                 clearcoatRoughness: 0.0,   // Make the clear coat smooth
                 transparent: true,
                 opacity: 0.6,
-                transmission: 0.9,         // Use transmission to simulate glass refraction
-                ior: 1.5,                  // Index of refraction (1.5 is common for glass)
             });
 
             const loader = new GLTFLoader().setPath("models/");
@@ -636,6 +642,34 @@
 }
 
     </script>
+
+    <script>
+document.getElementById('weddingForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+    data.welcomeDinner = formData.get('welcomeDinner') === 'on';
+    data.ceremonyReception = formData.get('ceremonyReception') === 'on';
+    data.recoveryBrunch = formData.get('recoveryBrunch') === 'on';
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxz1gzlR2n6bwFFXLNwILrMXBkrGV1y9HzEg4PbjMQtNQ9oDeC_3nhc_Ob_SXT7yL2g/exec'; 
+
+    fetch(scriptURL, { method: 'POST', body: JSON.stringify(data) })
+        .then(response => response.json())
+        .then(result => {
+            if (result.result === 'success') {
+                alert('Thank you for your response, we will be in touch soon!');
+            } else {
+                throw new Error('Error submitting form');
+            }
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert('Error submitting form');
+        });
+});
+</script>
 </body>
 
 </html>
