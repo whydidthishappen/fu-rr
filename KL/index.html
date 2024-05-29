@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <style type="text/css">
     html,
     body {
@@ -26,7 +26,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
     }
 
     @keyframes breath {
@@ -111,7 +110,6 @@
 
     .form-container * {
         transition: 0.2s all ease-in;
-
     }
 
     .form-group {
@@ -137,8 +135,6 @@
         autocomplete: off;
         autofill: off;
     }
-
-    .form-group input[type="text"] {}
 
     .choices-group {
         display: flex;
@@ -233,11 +229,45 @@
         max-height: 500px;
     }
 
-    #firstpage {
+    #firstpage{
         z-index: 3;
         font-size: 220%;
         color: rgba(255, 255, 255, 0.8);
         padding: 0 20px;
+    }
+
+
+     #successMessage {
+        font-size: 120%;
+        padding: 0 20px ;
+        font-weight: 400;
+     }
+
+    .loader {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid white;
+        width: 16px;
+        height: 16px;
+        animation: spin 2s linear infinite;
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .button-with-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     #typed-output {
@@ -276,8 +306,9 @@
         #firstpage {
             font-size: 160%;
         }
-        .centerform{
-            top:-10px;
+
+        .centerform {
+            top: -10px;
             overflow: auto;
         }
     }
@@ -293,8 +324,8 @@
             <form id="weddingForm" autocomplete="off">
                 <div class="form-group" id="nameGroup">
                     <h2>The Wedding of Farihin & Ryder</h2>
-                    <small>[ Mexico City, MX - 2025 ]</small>
-                    <input type="text" id="name" name="name" placeholder="Please Enter Your Name" autocomplete="off" autocomplete="false" required>
+                    <small>[ KL ]</small>
+                    <input type="text" id="name" name="name" placeholder="Please Enter Your Name" autocomplete="off" required>
                 </div>
                 <div class="form-group" id="attendanceGroup">
                     <h4>Select the events you'd like to attend :</h4>
@@ -350,109 +381,22 @@
                     <input type="text" id="guestName" name="guestName" placeholder="Name of Guest" autocomplete="off">
                 </div>
                 <div class="form-group hidden-content" id="submitButtonGroup">
-                    <button type="submit">Submit</button>
+                    <button type="submit" id="submitButton">Submit</button>
                 </div>
             </form>
         </div>
     </div>
-    <script>
-        document.getElementById('weddingForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
-            data.welcomeDinner = formData.get('welcomeDinner') === 'on';
-            data.ceremonyReception = formData.get('ceremonyReception') === 'on';
-            data.recoveryBrunch = formData.get('recoveryBrunch') === 'on';
-
-            console.log(data); // Handle the data as needed
-
-            alert('Form submitted successfully!');
-        });
-
-        function toggleCheckboxBackground(checkboxId, groupId) {
-            const checkbox = document.getElementById(checkboxId);
-            const group = document.getElementById(groupId);
-
-            group.addEventListener('click', function() {
-                checkbox.checked = !checkbox.checked;
-                group.classList.toggle('checked', checkbox.checked);
-                checkAttendanceSelections();
-            });
-        }
-
-        function checkAttendanceSelections() {
-            const welcomeDinner = document.getElementById('welcomeDinner').checked;
-            const ceremonyReception = document.getElementById('ceremonyReception').checked;
-            const recoveryBrunch = document.getElementById('recoveryBrunch').checked;
-
-            if (welcomeDinner || ceremonyReception || recoveryBrunch) {
-                document.getElementById('lodgingGroup').classList.add('visible-content');
-                document.getElementById('lodgingGroup').classList.remove('hidden-content');
-            } else {
-                document.getElementById('lodgingGroup').classList.remove('visible-content');
-                document.getElementById('lodgingGroup').classList.add('hidden-content');
-                document.getElementById('plusOneGroup').classList.remove('visible-content');
-                document.getElementById('plusOneGroup').classList.add('hidden-content');
-                document.getElementById('submitButtonGroup').classList.remove('visible-content');
-                document.getElementById('submitButtonGroup').classList.add('hidden-content');
-            }
-        }
-
-        function toggleRadioBackground(radioId, groupId) {
-            const radio = document.getElementById(radioId);
-            const group = document.getElementById(groupId);
-
-            group.addEventListener('click', function() {
-                radio.checked = true;
-
-                if (groupId.startsWith('lodging')) {
-                    document.querySelectorAll('.radio-group[id^="lodging"]').forEach(function(radioGroup) {
-                        radioGroup.classList.remove('checked');
-                    });
-                    group.classList.add('checked');
-                    document.getElementById('plusOneGroup').classList.add('visible-content');
-                    document.getElementById('plusOneGroup').classList.remove('hidden-content');
-                } else if (groupId.startsWith('plusOne')) {
-                    document.querySelectorAll('.radio-group[id^="plusOne"]').forEach(function(radioGroup) {
-                        radioGroup.classList.remove('checked');
-                    });
-                    group.classList.add('checked');
-
-                    if (radioId === 'plusOneYes') {
-                        document.getElementById('guestNameGroup').style.height = '45px';
-                        document.getElementById('guestNameGroup').classList.add('visible-content');
-                        document.getElementById('guestNameGroup').classList.remove('hidden-content');
-                    } else {
-                        document.getElementById('guestNameGroup').style.height = '0';
-                        document.getElementById('guestNameGroup').classList.remove('visible-content');
-                        document.getElementById('guestNameGroup').classList.add('hidden-content');
-                    }
-                }
-
-                document.getElementById('submitButtonGroup').classList.add('visible-content');
-                document.getElementById('submitButtonGroup').classList.remove('hidden-content');
-            });
-        }
-
-        toggleCheckboxBackground('welcomeDinner', 'welcomeDinnerGroup');
-        toggleCheckboxBackground('ceremonyReception', 'ceremonyReceptionGroup');
-        toggleCheckboxBackground('recoveryBrunch', 'recoveryBrunchGroup');
-        toggleRadioBackground('lodging1Night', 'lodging1NightGroup');
-        toggleRadioBackground('lodging2Nights', 'lodging2NightsGroup');
-        toggleRadioBackground('lodgingOwn', 'lodgingOwnGroup');
-        toggleRadioBackground('plusOneYes', 'plusOneYesGroup');
-        toggleRadioBackground('plusOneNo', 'plusOneNoGroup');
-    </script>
+    <div id="successMessage" class="centerform hidden">
+        <div id="typed-success-output"></div>
+    </div>
+   
     <script type="module">
-        import * as THREE from "./build/three.module.js";
-        import { OrbitControls } from "./jsm/controls/OrbitControls.js";
-        import { GLTFLoader } from "./jsm/loaders/GLTFLoader.js";
+        import * as THREE from "../build/three.module.js";
+        import { OrbitControls } from "../jsm/controls/OrbitControls.js";
+        import { GLTFLoader } from "../jsm/loaders/GLTFLoader.js";
 
-        let container, controls, clock, mixers = [];
-        let camera, scene, renderer;
-        let paused = false;
-        let objectScale = 9; // Default scale value
+        let container, clock, mixers = [];
+        let objectScale = 9;
 
         init();
         render();
@@ -468,7 +412,7 @@
             clock = new THREE.Clock();
 
             const envMap = new THREE.CubeTextureLoader()
-                .setPath('textures/cubeMaps/')
+                .setPath('../textures/cubeMaps/')
                 .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
@@ -482,19 +426,19 @@
             const glassMaterial = new THREE.MeshPhysicalMaterial({
                 color: 0x000000,
                 metalness: 0.0,
-                roughness: 0.05,           // Decrease roughness for smoother surface
+                roughness: 0.05,
                 envMap: envMap,
-                envMapIntensity: 7,      // Increase for more intense reflections
-                clearcoat: 1.0,            // Add a glossy clear coat
-                clearcoatRoughness: 0.0,   // Make the clear coat smooth
+                envMapIntensity: 7,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.0,
                 transparent: true,
                 opacity: 0.6,
             });
 
-            const loader = new GLTFLoader().setPath("models/");
+            const loader = new GLTFLoader().setPath("../models/");
             loader.load("3.glb", function (gltf) {
                 gltf.scene.position.set(0, -2.8, 0);
-                gltf.scene.scale.set(objectScale, objectScale, objectScale); // Apply initial scale
+                gltf.scene.scale.set(objectScale, objectScale, objectScale);
 
                 const mixer = new THREE.AnimationMixer(gltf.scene);
                 gltf.animations.forEach((clip) => {
@@ -571,16 +515,16 @@
 
         window.scrollTo(0, 0);
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var options = {
-                strings: ["Welcome..", "This is the Bunga Telur (or Egg Flower)", "Symbolizing blessings and new beginnings","You are invited to attend our new beginning", "The Wedding of Farihin and Ryder", "Click to RSVP "],
+                strings: ["Welcome..", "This is the Bunga Telur (or Egg Flower)", "Symbolizing blessings and new beginnings", "You are invited to attend our new beginning", "The Wedding of Farihin and Ryder", "Click to RSVP "],
                 typeSpeed: 70,
                 backSpeed: 25,
                 loop: false
             };
 
             document.getElementById('typed-output').style.opacity = 0;
-            
+
             setTimeout(() => {
                 document.getElementById('typed-output').classList.add('fade-in');
             }, 1000);
@@ -589,44 +533,206 @@
                 var typed = new Typed("#typed-output", options);
             }, 2000);
 
-            document.getElementById('typed-output').addEventListener('click', function() {
+            document.getElementById('typed-output').addEventListener('click', function () {
                 document.getElementById('firstpage').style.opacity = 0;
-                setTimeout(function() {
+                setTimeout(function () {
                     document.getElementById('firstpage').style.display = 'none';
                     document.querySelector('.centerform').classList.remove('hidden');
-                    zoomInAndReposition(); // Call the zoom function here
+                    zoomInAndReposition();
                 }, 500);
             });
         });
 
-       function zoomInAndReposition() {
-    // Update the camera and object position
-    const targetPosition = { x: 0, y: 0.9, z: 0.6 }; // New camera position
-    const duration = 0; // Duration of the animation in milliseconds
+        function zoomInAndReposition() {
+            const targetPosition = { x: 0, y: 0.9, z: 0.6 };
+            const duration = 0;
+            const startPosition = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+            const startTime = performance.now();
+
+            const initialMaterialProperties = { envMapIntensity: 6.0 };
+            const targetMaterialProperties = { envMapIntensity: 0.1 };
+
+            function animateZoom(time) {
+                const elapsed = time - startTime;
+                const t = Math.min(elapsed / duration, 1);
+
+                camera.position.set(
+                    startPosition.x + (targetPosition.x - startPosition.x) * t,
+                    startPosition.y + (targetPosition.y - startPosition.y) * t,
+                    startPosition.z + (targetPosition.z - startPosition.z) * t
+                );
+
+                scene.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.envMapIntensity = initialMaterialProperties.envMapIntensity +
+                            (targetMaterialProperties.envMapIntensity - initialMaterialProperties.envMapIntensity) * t;
+                        child.material.needsUpdate = true;
+                    }
+                });
+
+                controls.target.set(0, 0, 0);
+                controls.update();
+
+                if (t < 1) {
+                    requestAnimationFrame(animateZoom);
+                }
+            }
+
+            requestAnimationFrame(animateZoom);
+        }
+    </script>
+
+     <script>
+        let scene, camera, renderer, controls;
+        let paused = false;
+
+        document.getElementById('weddingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            data.welcomeDinner = formData.get('welcomeDinner') === 'on';
+            data.ceremonyReception = formData.get('ceremonyReception') === 'on';
+            data.recoveryBrunch = formData.get('recoveryBrunch') === 'on';
+
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Submitting <div class="loader"></div>';
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxKkZ7f05q1MVB1NMfHl8MtuZV6PYXq3qdTkfKbeRGp2f0ll4ZnP_PjOVogveBKk_Za/exec';
+
+            fetch(scriptURL, { method: 'POST', body: JSON.stringify(data) })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.result === 'success') {
+                        console.log('Form submitted successfully');
+                        document.querySelector('.centerform').classList.add('hidden');
+                        document.getElementById('successMessage').classList.remove('hidden');
+                        var options = {
+                            strings: ["Thank you for your response, we will be in touch soon!"],
+                            typeSpeed: 70,
+                            backSpeed: 25,
+                            loop: false
+                        };
+                        new Typed("#typed-success-output", options);
+                        reset3DObject();
+                    } else {
+                        throw new Error('Error submitting form: ' + result);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Error submitting form: ' + error.message);
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Submit';
+                });
+        });
+
+        function toggleCheckboxBackground(checkboxId, groupId) {
+            const checkbox = document.getElementById(checkboxId);
+            const group = document.getElementById(groupId);
+
+            group.addEventListener('click', function () {
+                checkbox.checked = !checkbox.checked;
+                group.classList.toggle('checked', checkbox.checked);
+                checkAttendanceSelections();
+            });
+        }
+
+        function checkAttendanceSelections() {
+            const welcomeDinner = document.getElementById('welcomeDinner').checked;
+            const ceremonyReception = document.getElementById('ceremonyReception').checked;
+            const recoveryBrunch = document.getElementById('recoveryBrunch').checked;
+
+            if (welcomeDinner || ceremonyReception || recoveryBrunch) {
+                document.getElementById('lodgingGroup').classList.add('visible-content');
+                document.getElementById('lodgingGroup').classList.remove('hidden-content');
+            } else {
+                document.getElementById('lodgingGroup').classList.remove('visible-content');
+                document.getElementById('lodgingGroup').classList.add('hidden-content');
+                document.getElementById('plusOneGroup').classList.remove('visible-content');
+                document.getElementById('plusOneGroup').classList.add('hidden-content');
+                document.getElementById('submitButtonGroup').classList.remove('visible-content');
+                document.getElementById('submitButtonGroup').classList.add('hidden-content');
+            }
+        }
+
+        function toggleRadioBackground(radioId, groupId) {
+            const radio = document.getElementById(radioId);
+            const group = document.getElementById(groupId);
+
+            group.addEventListener('click', function () {
+                radio.checked = true;
+
+                if (groupId.startsWith('lodging')) {
+                    document.querySelectorAll('.radio-group[id^="lodging"]').forEach(function (radioGroup) {
+                        radioGroup.classList.remove('checked');
+                    });
+                    group.classList.add('checked');
+                    document.getElementById('plusOneGroup').classList.add('visible-content');
+                    document.getElementById('plusOneGroup').classList.remove('hidden-content');
+                } else if (groupId.startsWith('plusOne')) {
+                    document.querySelectorAll('.radio-group[id^="plusOne"]').forEach(function (radioGroup) {
+                        radioGroup.classList.remove('checked');
+                    });
+                    group.classList.add('checked');
+
+                    if (radioId === 'plusOneYes') {
+                        document.getElementById('guestNameGroup').style.height = '45px';
+                        document.getElementById('guestNameGroup').classList.add('visible-content');
+                        document.getElementById('guestNameGroup').classList.remove('hidden-content');
+                    } else {
+                        document.getElementById('guestNameGroup').style.height = '0';
+                        document.getElementById('guestNameGroup').classList.remove('visible-content');
+                        document.getElementById('guestNameGroup').classList.add('hidden-content');
+                    }
+                }
+
+                document.getElementById('submitButtonGroup').classList.add('visible-content');
+                document.getElementById('submitButtonGroup').classList.remove('hidden-content');
+            });
+        }
+
+        toggleCheckboxBackground('welcomeDinner', 'welcomeDinnerGroup');
+        toggleCheckboxBackground('ceremonyReception', 'ceremonyReceptionGroup');
+        toggleCheckboxBackground('recoveryBrunch', 'recoveryBrunchGroup');
+        toggleRadioBackground('lodging1Night', 'lodging1NightGroup');
+        toggleRadioBackground('lodging2Nights', 'lodging2NightsGroup');
+        toggleRadioBackground('lodgingOwn', 'lodgingOwnGroup');
+        toggleRadioBackground('plusOneYes', 'plusOneYesGroup');
+        toggleRadioBackground('plusOneNo', 'plusOneNoGroup');
+
+        
+let initialPosition = { x: 0, y: -2.8, z: 0 };
+let initialScale = 9;
+
+function reset3DObject() {
+    const targetPosition = initialPosition;
     const startPosition = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+    const duration = 1000; // Duration of the animation in milliseconds
     const startTime = performance.now();
 
-    // Initial and target material property values
-    const initialMaterialProperties = { envMapIntensity: 6.0 }; // Example initial value
-    const targetMaterialProperties = { envMapIntensity: 0.1 }; // Example target value
+    const initialMaterialProperties = { envMapIntensity: 0.1 }; // Example initial value
+    const targetMaterialProperties = { envMapIntensity: 7 }; // Example target value
 
-    function animateZoom(time) {
+    function animateReset(time) {
         const elapsed = time - startTime;
         const t = Math.min(elapsed / duration, 1);
 
-        // Interpolate camera position
         camera.position.set(
             startPosition.x + (targetPosition.x - startPosition.x) * t,
             startPosition.y + (targetPosition.y - startPosition.y) * t,
             startPosition.z + (targetPosition.z - startPosition.z) * t
         );
 
-        // Interpolate material properties
         scene.traverse((child) => {
-            if (child.isMesh) {
+            if (child.isMesh || child.isGroup) {
+                child.scale.set(initialScale, initialScale, initialScale);
                 child.material.envMapIntensity = initialMaterialProperties.envMapIntensity +
-                                                 (targetMaterialProperties.envMapIntensity - initialMaterialProperties.envMapIntensity) * t;
-                child.material.needsUpdate = true; // Ensure material is updated
+                    (targetMaterialProperties.envMapIntensity - initialMaterialProperties.envMapIntensity) * t;
+                child.material.needsUpdate = true;
             }
         });
 
@@ -634,42 +740,17 @@
         controls.update();
 
         if (t < 1) {
-            requestAnimationFrame(animateZoom);
+            requestAnimationFrame(animateReset);
+        } else {
+            // Ensure final position is exactly as initial
+            camera.position.set(targetPosition.x, targetPosition.y, targetPosition.z);
+            controls.update();
         }
     }
 
-    requestAnimationFrame(animateZoom);
+    requestAnimationFrame(animateReset);
 }
-
     </script>
-
-    <script>
-document.getElementById('weddingForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-    data.welcomeDinner = formData.get('welcomeDinner') === 'on';
-    data.ceremonyReception = formData.get('ceremonyReception') === 'on';
-    data.recoveryBrunch = formData.get('recoveryBrunch') === 'on';
-
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxz1gzlR2n6bwFFXLNwILrMXBkrGV1y9HzEg4PbjMQtNQ9oDeC_3nhc_Ob_SXT7yL2g/exec'; 
-
-    fetch(scriptURL, { method: 'POST', body: JSON.stringify(data) })
-        .then(response => response.json())
-        .then(result => {
-            if (result.result === 'success') {
-                alert('Thank you for your response, we will be in touch soon!');
-            } else {
-                throw new Error('Error submitting form');
-            }
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            alert('Error submitting form');
-        });
-});
-</script>
 </body>
 
 </html>
