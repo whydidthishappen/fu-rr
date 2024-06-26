@@ -3,20 +3,19 @@
 
 <head>
     <meta charset="utf-8">
-    <title>FURR 2025</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <style type="text/css">
     html,
     body {
         font-family: "IBM Plex Mono", monospace;
         font-weight: 300;
         font-optical-sizing: auto;
-        background: black url(textures/dither.gif) center;
+        background: black url(textures/dither.gif)center;
         background-attachment: fixed;
         color: rgba(255, 255, 255, 0.9);
         min-height: 100vh;
@@ -28,25 +27,8 @@
         align-items: center;
     }
 
-    @keyframes breath {
-        60% {
-            background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 20%, rgba(0, 0, 0, 1) 90%);
-        }
-    }
-
-    @keyframes fadeinbg {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-
     section {
         width: 100vw;
-        animation: fadeinbg 4s 1 linear;
         height: 100vh;
         position: fixed;
         left: 0;
@@ -57,6 +39,8 @@
         background: radial-gradient(circle, rgba(3, 0, 66, 1) 0%, rgba(0, 0, 74, 0.9) 41%, rgba(0, 0, 0, 1) 90%);
         background-size: cover;
     }
+
+
 
     input::placeholder {
         color: rgba(255, 255, 255, 0.8);
@@ -94,7 +78,6 @@
         padding: 0;
         box-sizing: border-box;
         user-select: none;
-        outline: 0;
     }
 
     .form-container {
@@ -110,6 +93,7 @@
 
     .form-container * {
         transition: 0.2s all ease-in;
+
     }
 
     .form-group {
@@ -135,6 +119,8 @@
         autocomplete: off;
         autofill: off;
     }
+
+    .form-group input[type="text"] {}
 
     .choices-group {
         display: flex;
@@ -185,11 +171,8 @@
 
     h4 {
         font-weight: 400;
-        margin: 20px 10px 5px 10px;
+        margin: 10px 0;
         font-size: 100%;
-        font-weight: 500;
-        font-size: 90%;
-        text-transform: capitalize;
     }
 
     h2 {
@@ -204,8 +187,8 @@
         border: 1px solid rgba(255, 255, 255, 0.6);
         color: rgba(255, 255, 255, 0.9);
         font-family: "IBM Plex Mono", monospace;
-        font-size: 100%;
-        font-weight: 500;
+        font-style: italic;
+        font-size: 120%;
         border-radius: 10px;
         background: transparent;
         padding: 15px;
@@ -229,88 +212,24 @@
         max-height: 500px;
     }
 
-    #firstpage{
+    #firstpage {
+        text-align: center;
         z-index: 3;
-        font-size: 220%;
+        font-size: 180%;
         color: rgba(255, 255, 255, 0.8);
-        padding: 0 20px;
     }
 
-
-     #successMessage {
-        font-size: 120%;
-        padding: 0 20px ;
-        font-weight: 400;
-     }
-
-    .loader {
-        border: 4px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        border-top: 4px solid white;
-        width: 16px;
-        height: 16px;
-        animation: spin 2s linear infinite;
-        display: inline-block;
-        margin-left: 10px;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    .button-with-loader {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    #endpage {
+        opacity: 0;
+        z-index: 3;
+        font-size: 150%;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
     }
 
     #typed-output {
         cursor: pointer;
-        display: contents;
-        opacity: 0;
-        transition: opacity 1s;
-    }
-
-    .typed-cursor {
         display: inline-block;
-    }
-
-    .fade-in {
-        opacity: 1 !important;
-    }
-
-    .fade-in-text {
-        opacity: 1;
-    }
-
-    .fade-in-text::after {
-        content: attr(data-text);
-        display: block;
-        white-space: pre;
-        visibility: hidden;
-        height: 0;
-        overflow: hidden;
-    }
-
-    small {
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 960px) {
-        #firstpage {
-            font-size: 160%;
-        }
-
-        .centerform {
-            top: -10px;
-            overflow: auto;
-        }
     }
     </style>
 </head>
@@ -319,50 +238,47 @@
     <div id="firstpage">
         <div id="typed-output"></div>
     </div>
+
+    <div id="endpage" style="display: none;">
+        <div id="end-output" style="max-width: 600px; word-wrap: break-word;"></div>
+        <div id="okByeMessage" style="opacity: 0; transition: opacity 1s; max-width: 600px; word-wrap: break-word;"></div>
+    </div>
+
     <div class="centerform hidden">
         <div class="form-container">
             <form id="weddingForm" autocomplete="off">
                 <div class="form-group" id="nameGroup">
-                    <h2>The Wedding of Farihin & Ryder</h2>
-                    <small>[ KL ]</small>
+                    <h2>~ The Wedding of Farihin & Ryder ~</h2>
                     <input type="text" id="name" name="name" placeholder="Please Enter Your Name" autocomplete="off" required>
                 </div>
-                <div class="form-group" id="attendanceGroup">
-                    <h4>Select the events you'd like to attend :</h4>
+                <div class="form-group" id="attendGroup">
+                    <h4>Can you attend?</h4>
                     <div class="choices-group">
-                        <div class="checkbox-group" id="welcomeDinnerGroup">
-                            <input type="checkbox" id="welcomeDinner" name="welcomeDinner">
-                            <h3>Welcome Dinner</h3>
-                            <label for="welcomeDinner">Fri, 24 Jan<br>(Festive Attire)</label>
+                        <div class="radio-group" id="attendYesGroup">
+                            <input type="radio" id="attendYes" name="attend" value="Yes" required>
+                            <label for="attendYes">Yes</label>
                         </div>
-                        <div class="checkbox-group" id="ceremonyReceptionGroup">
-                            <input type="checkbox" id="ceremonyReception" name="ceremonyReception">
-                            <h3>Ceremony and Reception</h3>
-                            <label for="ceremonyReception">Sat, 25 Jan<br>(Black Tie)</label>
-                        </div>
-                        <div class="checkbox-group" id="recoveryBrunchGroup">
-                            <input type="checkbox" id="recoveryBrunch" name="recoveryBrunch">
-                            <h3>Recovery Brunch</h3>
-                            <label for="recoveryBrunch">Sun, 26 Jan<br>(Casual)</label>
+                        <div class="radio-group" id="attendNoGroup">
+                            <input type="radio" id="attendNo" name="attend" value="No">
+                            <label for="attendNo">No</label>
                         </div>
                     </div>
                 </div>
-                <div class="form-group hidden-content" id="lodgingGroup">
-                    <h4>Want us to provide lodging?</h4>
+                <div class="form-group hidden-content" id="dietaryGroup">
+                    <h4>Do you have any dietary restrictions?</h4>
                     <div class="choices-group">
-                        <div class="radio-group" id="lodging1NightGroup">
-                            <input type="radio" id="lodging1Night" name="lodging" value="1 night" required>
-                            <label for="lodging1Night">Yes,<br>1 night</label>
+                        <div class="radio-group" id="dietaryNoGroup">
+                            <input type="radio" id="dietaryNo" name="dietary" value="No" required>
+                            <label for="dietaryNo">No</label>
                         </div>
-                        <div class="radio-group" id="lodging2NightsGroup">
-                            <input type="radio" id="lodging2Nights" name="lodging" value="2 nights">
-                            <label for="lodging2Nights">Yes,<br>2 nights</label>
-                        </div>
-                        <div class="radio-group" id="lodgingOwnGroup">
-                            <input type="radio" id="lodgingOwn" name="lodging" value="own">
-                            <label for="lodgingOwn">No,<br>I'll book my own</label>
+                        <div class="radio-group" id="dietaryYesGroup">
+                            <input type="radio" id="dietaryYes" name="dietary" value="Yes">
+                            <label for="dietaryYes">Yes, specify</label>
                         </div>
                     </div>
+                </div>
+                <div class="form-group hidden-content" id="dietaryNameGroup" style="height: 0;">
+                    <input type="text" id="dietaryName" name="dietaryName" placeholder="Dietary restrictions" autocomplete="off">
                 </div>
                 <div class="form-group hidden-content" id="plusOneGroup">
                     <h4>Bringing a plus one?</h4>
@@ -381,22 +297,206 @@
                     <input type="text" id="guestName" name="guestName" placeholder="Name of Guest" autocomplete="off">
                 </div>
                 <div class="form-group hidden-content" id="submitButtonGroup">
-                    <button type="submit" id="submitButton">Submit</button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
         </div>
     </div>
-    <div id="successMessage" class="centerform hidden">
-        <div id="typed-success-output"></div>
-    </div>
-   
-    <script type="module">
-        import * as THREE from "../build/three.module.js";
-        import { OrbitControls } from "../jsm/controls/OrbitControls.js";
-        import { GLTFLoader } from "../jsm/loaders/GLTFLoader.js";
 
-        let container, clock, mixers = [];
-        let objectScale = 9;
+
+
+
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var options = {
+                strings: ["You're invited!" "Farihin and Ryder’s Wedding Dinner" "At the Four Seasons KL on Sat, 30 Nov at 5.00pm", "Click to RSVP "],
+                typeSpeed: 70,
+                backSpeed: 25,
+                loop: false
+            };
+
+            var typed = new Typed("#typed-output", options);
+
+            document.getElementById('typed-output').addEventListener('click', function() {
+                document.getElementById('firstpage').style.opacity = 0;
+                setTimeout(function() {
+                    document.getElementById('firstpage').style.display = 'none';
+                    document.querySelector('.centerform').classList.remove('hidden');
+                }, 500);
+            });
+
+            document.getElementById('weddingForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var endOutputElement = document.getElementById('end-output');
+                var endMessage = "Dress code: Pastel or neutral-coloured (i.e. no bright colours) traditional Malaysian formal-ware. The more traditional, the better (e.g. kebaya songket, sarees, cheongsams)";
+                
+                endOutputElement.innerHTML = '';
+
+                var typedEndMessage = new Typed(endOutputElement, {
+                    strings: [endMessage],
+                    typeSpeed: 70,
+                    backSpeed: 25,
+                    showCursor: false,
+                    onComplete: function() {}
+                });
+
+                document.getElementById('endpage').style.opacity = 1;
+                document.getElementById('endpage').style.display = 'inline-block';
+                document.querySelector('.centerform').classList.add('hidden');
+
+                // Get form data
+                var formData = new FormData(event.target);
+                var data = {
+                    name: formData.get('name'),
+                    attend: formData.get('attend'),
+                    dietary: formData.get('dietary') === 'Yes' ? formData.get('dietaryName') : 'No',
+                    plusOne: formData.get('plusOne') === 'Yes' ? formData.get('guestName') : 'No'
+                };
+
+                // Convert data object to query string
+                var queryString = new URLSearchParams(data).toString();
+
+                // Send data to Google Apps Script
+                fetch('https://script.google.com/macros/s/AKfycbzYWAVhq_N0PdljpCRVj9y1Ek6s59k9_wewvs920_t7tXKcAgKZvrJqdRZ5N_PkNBOd/exec?' + queryString, {
+                    method: 'GET',
+                })
+                .then(response => response.json())
+                .then(result => {
+                    console.log('Success:', result);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+            document.getElementById('attendNoGroup').addEventListener('click', function() {
+                if (document.getElementById('attendNo').checked) {
+                    var okByeMessageElement = document.getElementById('okByeMessage');
+                    var okByeText = "...bruh...";
+
+                    okByeMessageElement.innerHTML = '';
+
+                    var typedOkByeMessage = new Typed(okByeMessageElement, {
+                        strings: [okByeText],
+                        typeSpeed: 70,
+                        backSpeed: 25,
+                        showCursor: false,
+                        onComplete: function() {
+                            setTimeout(function() {
+                                okByeMessageElement.style.opacity = 1;
+                                // Set a timeout to hide the message after 5 seconds
+                                setTimeout(function() {
+                                    okByeMessageElement.style.opacity = 0;
+                                }, 5000); // 5000 milliseconds = 5 seconds
+                            }, 300); // Delay before showing the message
+                        }
+                    });
+
+                    document.getElementById('endpage').style.opacity = 1;
+                    document.getElementById('endpage').style.display = 'inline-block';
+                    document.querySelector('.centerform').classList.add('hidden');
+                }
+            });
+
+            function toggleRadioBackground(radioId, groupId) {
+                const radio = document.getElementById(radioId);
+                const group = document.getElementById(groupId);
+
+                group.addEventListener('click', function() {
+                    radio.checked = true;
+
+                    if (groupId.startsWith('attend')) {
+                        // attend check group
+                        document.querySelectorAll('.radio-group[id^="attend"]').forEach(function(radioGroup) {
+                            radioGroup.classList.remove('checked');
+                        });
+                        group.classList.add('checked');
+
+                        if (radioId === 'attendYes') {
+                            // show diet
+                            document.getElementById('dietaryGroup').classList.add('visible-content');
+                            document.getElementById('dietaryGroup').classList.remove('hidden-content');
+                        } else {
+                            // hide all elements
+                            document.getElementById('dietaryGroup').classList.remove('visible-content');
+                            document.getElementById('dietaryGroup').classList.add('hidden-content');
+
+                            document.getElementById('plusOneGroup').classList.remove('visible-content');
+                            document.getElementById('plusOneGroup').classList.add('hidden-content');
+
+                            document.getElementById('dietaryNameGroup').style.height = '0';
+                            document.getElementById('dietaryNameGroup').classList.remove('visible-content');
+                            document.getElementById('dietaryNameGroup').classList.add('hidden-content');
+
+                            document.getElementById('guestNameGroup').style.height = '0';
+                            document.getElementById('guestNameGroup').classList.remove('visible-content');
+                            document.getElementById('guestNameGroup').classList.add('hidden-content');
+
+                            document.getElementById('submitButtonGroup').classList.remove('visible-content');
+                            document.getElementById('submitButtonGroup').classList.add('hidden-content');
+                        }
+                    } else if (groupId.startsWith('dietary')) {
+                        // dietary check group
+                        document.querySelectorAll('.radio-group[id^="dietary"]').forEach(function(radioGroup) {
+                            radioGroup.classList.remove('checked');
+                        });
+                        group.classList.add('checked');
+
+                        if (radioId === 'dietaryYes') {
+                            // if yes, show text
+                            document.getElementById('dietaryNameGroup').style.height = '45px';
+                            document.getElementById('dietaryNameGroup').classList.add('visible-content');
+                            document.getElementById('dietaryNameGroup').classList.remove('hidden-content');
+                        } else {
+                            // if no, hide text
+                            document.getElementById('dietaryNameGroup').style.height = '0';
+                            document.getElementById('dietaryNameGroup').classList.remove('visible-content');
+                            document.getElementById('dietaryNameGroup').classList.add('hidden-content');
+                        }
+                        // in both cases show plus one
+                        document.getElementById('plusOneGroup').classList.add('visible-content');
+                        document.getElementById('plusOneGroup').classList.remove('hidden-content');
+                    } else if (groupId.startsWith('plusOne')) {
+                        document.querySelectorAll('.radio-group[id^="plusOne"]').forEach(function(radioGroup) {
+                            radioGroup.classList.remove('checked');
+                        });
+                        group.classList.add('checked');
+
+                        if (radioId === 'plusOneYes') {
+                            document.getElementById('guestNameGroup').style.height = '45px';
+                            document.getElementById('guestNameGroup').classList.add('visible-content');
+                            document.getElementById('guestNameGroup').classList.remove('hidden-content');
+                        } else {
+                            document.getElementById('guestNameGroup').style.height = '0';
+                            document.getElementById('guestNameGroup').classList.remove('visible-content');
+                            document.getElementById('guestNameGroup').classList.add('hidden-content');
+                        }
+
+                        // show submit button
+                        document.getElementById('submitButtonGroup').classList.add('visible-content');
+                        document.getElementById('submitButtonGroup').classList.remove('hidden-content');
+                    }
+                });
+            }
+            toggleRadioBackground('attendYes', 'attendYesGroup');
+            toggleRadioBackground('attendNo', 'attendNoGroup');
+            toggleRadioBackground('dietaryYes', 'dietaryYesGroup');
+            toggleRadioBackground('dietaryNo', 'dietaryNoGroup');
+            toggleRadioBackground('plusOneYes', 'plusOneYesGroup');
+            toggleRadioBackground('plusOneNo', 'plusOneNoGroup');
+        });
+    </script>
+
+    <script type="module">
+        import * as THREE from "/build/three.module.js";
+        import { OrbitControls } from "/jsm/controls/OrbitControls.js";
+        import { GLTFLoader } from "/jsm/loaders/GLTFLoader.js";
+
+        let container, controls, clock, mixers = [];
+        let camera, scene, renderer;
+        let paused = false;
+        let objectScale = 9; // Default scale value
 
         init();
         render();
@@ -412,7 +512,7 @@
             clock = new THREE.Clock();
 
             const envMap = new THREE.CubeTextureLoader()
-                .setPath('../textures/cubeMaps/')
+                .setPath('/textures/cubeMaps/')
                 .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
@@ -426,19 +526,21 @@
             const glassMaterial = new THREE.MeshPhysicalMaterial({
                 color: 0x000000,
                 metalness: 0.0,
-                roughness: 0.05,
+                roughness: 0.05,           // Decrease roughness for smoother surface
                 envMap: envMap,
-                envMapIntensity: 7,
-                clearcoat: 1.0,
-                clearcoatRoughness: 0.0,
+                envMapIntensity: 6,      // Increase for more intense reflections
+                clearcoat: 1.0,            // Add a glossy clear coat
+                clearcoatRoughness: 0.0,   // Make the clear coat smooth
                 transparent: true,
                 opacity: 0.6,
+                transmission: 0.9,         // Use transmission to simulate glass refraction
+                ior: 1.5,                  // Index of refraction (1.5 is common for glass)
             });
 
-            const loader = new GLTFLoader().setPath("../models/");
+            const loader = new GLTFLoader().setPath("/models/");
             loader.load("3.glb", function (gltf) {
                 gltf.scene.position.set(0, -2.8, 0);
-                gltf.scene.scale.set(objectScale, objectScale, objectScale);
+                gltf.scene.scale.set(objectScale, objectScale, objectScale); // Apply initial scale
 
                 const mixer = new THREE.AnimationMixer(gltf.scene);
                 gltf.animations.forEach((clip) => {
@@ -514,242 +616,6 @@
         }
 
         window.scrollTo(0, 0);
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var options = {
-                strings: ["Welcome..", "This is the Bunga Telur (or Egg Flower)", "Symbolizing blessings and new beginnings", "You are invited to attend our new beginning", "The Wedding of Farihin and Ryder", "Click to RSVP "],
-                typeSpeed: 70,
-                backSpeed: 25,
-                loop: false
-            };
-
-            document.getElementById('typed-output').style.opacity = 0;
-
-            setTimeout(() => {
-                document.getElementById('typed-output').classList.add('fade-in');
-            }, 1000);
-
-            setTimeout(() => {
-                var typed = new Typed("#typed-output", options);
-            }, 2000);
-
-            document.getElementById('typed-output').addEventListener('click', function () {
-                document.getElementById('firstpage').style.opacity = 0;
-                setTimeout(function () {
-                    document.getElementById('firstpage').style.display = 'none';
-                    document.querySelector('.centerform').classList.remove('hidden');
-                    zoomInAndReposition();
-                }, 500);
-            });
-        });
-
-        function zoomInAndReposition() {
-            const targetPosition = { x: 0, y: 0.9, z: 0.6 };
-            const duration = 0;
-            const startPosition = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
-            const startTime = performance.now();
-
-            const initialMaterialProperties = { envMapIntensity: 6.0 };
-            const targetMaterialProperties = { envMapIntensity: 0.1 };
-
-            function animateZoom(time) {
-                const elapsed = time - startTime;
-                const t = Math.min(elapsed / duration, 1);
-
-                camera.position.set(
-                    startPosition.x + (targetPosition.x - startPosition.x) * t,
-                    startPosition.y + (targetPosition.y - startPosition.y) * t,
-                    startPosition.z + (targetPosition.z - startPosition.z) * t
-                );
-
-                scene.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material.envMapIntensity = initialMaterialProperties.envMapIntensity +
-                            (targetMaterialProperties.envMapIntensity - initialMaterialProperties.envMapIntensity) * t;
-                        child.material.needsUpdate = true;
-                    }
-                });
-
-                controls.target.set(0, 0, 0);
-                controls.update();
-
-                if (t < 1) {
-                    requestAnimationFrame(animateZoom);
-                }
-            }
-
-            requestAnimationFrame(animateZoom);
-        }
-    </script>
-
-     <script>
-        let scene, camera, renderer, controls;
-        let paused = false;
-
-        document.getElementById('weddingForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
-            data.welcomeDinner = formData.get('welcomeDinner') === 'on';
-            data.ceremonyReception = formData.get('ceremonyReception') === 'on';
-            data.recoveryBrunch = formData.get('recoveryBrunch') === 'on';
-
-            const submitButton = document.getElementById('submitButton');
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Submitting <div class="loader"></div>';
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxKkZ7f05q1MVB1NMfHl8MtuZV6PYXq3qdTkfKbeRGp2f0ll4ZnP_PjOVogveBKk_Za/exec';
-
-            fetch(scriptURL, { method: 'POST', body: JSON.stringify(data) })
-                .then(response => response.json())
-                .then(result => {
-                    if (result.result === 'success') {
-                        console.log('Form submitted successfully');
-                        document.querySelector('.centerform').classList.add('hidden');
-                        document.getElementById('successMessage').classList.remove('hidden');
-                        var options = {
-                            strings: ["Thank you for your response, we will be in touch soon!"],
-                            typeSpeed: 70,
-                            backSpeed: 25,
-                            loop: false
-                        };
-                        new Typed("#typed-success-output", options);
-                        reset3DObject();
-                    } else {
-                        throw new Error('Error submitting form: ' + result);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert('Error submitting form: ' + error.message);
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = 'Submit';
-                });
-        });
-
-        function toggleCheckboxBackground(checkboxId, groupId) {
-            const checkbox = document.getElementById(checkboxId);
-            const group = document.getElementById(groupId);
-
-            group.addEventListener('click', function () {
-                checkbox.checked = !checkbox.checked;
-                group.classList.toggle('checked', checkbox.checked);
-                checkAttendanceSelections();
-            });
-        }
-
-        function checkAttendanceSelections() {
-            const welcomeDinner = document.getElementById('welcomeDinner').checked;
-            const ceremonyReception = document.getElementById('ceremonyReception').checked;
-            const recoveryBrunch = document.getElementById('recoveryBrunch').checked;
-
-            if (welcomeDinner || ceremonyReception || recoveryBrunch) {
-                document.getElementById('lodgingGroup').classList.add('visible-content');
-                document.getElementById('lodgingGroup').classList.remove('hidden-content');
-            } else {
-                document.getElementById('lodgingGroup').classList.remove('visible-content');
-                document.getElementById('lodgingGroup').classList.add('hidden-content');
-                document.getElementById('plusOneGroup').classList.remove('visible-content');
-                document.getElementById('plusOneGroup').classList.add('hidden-content');
-                document.getElementById('submitButtonGroup').classList.remove('visible-content');
-                document.getElementById('submitButtonGroup').classList.add('hidden-content');
-            }
-        }
-
-        function toggleRadioBackground(radioId, groupId) {
-            const radio = document.getElementById(radioId);
-            const group = document.getElementById(groupId);
-
-            group.addEventListener('click', function () {
-                radio.checked = true;
-
-                if (groupId.startsWith('lodging')) {
-                    document.querySelectorAll('.radio-group[id^="lodging"]').forEach(function (radioGroup) {
-                        radioGroup.classList.remove('checked');
-                    });
-                    group.classList.add('checked');
-                    document.getElementById('plusOneGroup').classList.add('visible-content');
-                    document.getElementById('plusOneGroup').classList.remove('hidden-content');
-                } else if (groupId.startsWith('plusOne')) {
-                    document.querySelectorAll('.radio-group[id^="plusOne"]').forEach(function (radioGroup) {
-                        radioGroup.classList.remove('checked');
-                    });
-                    group.classList.add('checked');
-
-                    if (radioId === 'plusOneYes') {
-                        document.getElementById('guestNameGroup').style.height = '45px';
-                        document.getElementById('guestNameGroup').classList.add('visible-content');
-                        document.getElementById('guestNameGroup').classList.remove('hidden-content');
-                    } else {
-                        document.getElementById('guestNameGroup').style.height = '0';
-                        document.getElementById('guestNameGroup').classList.remove('visible-content');
-                        document.getElementById('guestNameGroup').classList.add('hidden-content');
-                    }
-                }
-
-                document.getElementById('submitButtonGroup').classList.add('visible-content');
-                document.getElementById('submitButtonGroup').classList.remove('hidden-content');
-            });
-        }
-
-        toggleCheckboxBackground('welcomeDinner', 'welcomeDinnerGroup');
-        toggleCheckboxBackground('ceremonyReception', 'ceremonyReceptionGroup');
-        toggleCheckboxBackground('recoveryBrunch', 'recoveryBrunchGroup');
-        toggleRadioBackground('lodging1Night', 'lodging1NightGroup');
-        toggleRadioBackground('lodging2Nights', 'lodging2NightsGroup');
-        toggleRadioBackground('lodgingOwn', 'lodgingOwnGroup');
-        toggleRadioBackground('plusOneYes', 'plusOneYesGroup');
-        toggleRadioBackground('plusOneNo', 'plusOneNoGroup');
-
-        
-let initialPosition = { x: 0, y: -2.8, z: 0 };
-let initialScale = 9;
-
-function reset3DObject() {
-    const targetPosition = initialPosition;
-    const startPosition = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
-    const duration = 1000; // Duration of the animation in milliseconds
-    const startTime = performance.now();
-
-    const initialMaterialProperties = { envMapIntensity: 0.1 }; // Example initial value
-    const targetMaterialProperties = { envMapIntensity: 7 }; // Example target value
-
-    function animateReset(time) {
-        const elapsed = time - startTime;
-        const t = Math.min(elapsed / duration, 1);
-
-        camera.position.set(
-            startPosition.x + (targetPosition.x - startPosition.x) * t,
-            startPosition.y + (targetPosition.y - startPosition.y) * t,
-            startPosition.z + (targetPosition.z - startPosition.z) * t
-        );
-
-        scene.traverse((child) => {
-            if (child.isMesh || child.isGroup) {
-                child.scale.set(initialScale, initialScale, initialScale);
-                child.material.envMapIntensity = initialMaterialProperties.envMapIntensity +
-                    (targetMaterialProperties.envMapIntensity - initialMaterialProperties.envMapIntensity) * t;
-                child.material.needsUpdate = true;
-            }
-        });
-
-        controls.target.set(0, 0, 0); // Update the target to keep the object centered
-        controls.update();
-
-        if (t < 1) {
-            requestAnimationFrame(animateReset);
-        } else {
-            // Ensure final position is exactly as initial
-            camera.position.set(targetPosition.x, targetPosition.y, targetPosition.z);
-            controls.update();
-        }
-    }
-
-    requestAnimationFrame(animateReset);
-}
     </script>
 </body>
 
